@@ -1,27 +1,28 @@
 
-		// Angular
+	// Angular
 
 	What is Angular..??
 	-------------------
 
-	Angular is a platform and leading front-end development framework framework for building single-page client applications using HTML and TypeScript. Angular is written in TypeScript. It implements core and optional functionality as a set of TypeScript libraries that you import into your applications.
+		Angular is a platform and leading front-end development framework for building single-page client applications using HTML and TypeScript. Angular is written in TypeScript. It implements core and optional functionality as a set of TypeScript libraries that you import into your applications.
 
-	Angular is a development platform, built on TypeScript.  It is maintained mainly by Google and a community (Initial release	October 20, 2010).
+		Angular is a development platform, built on TypeScript.  It is maintained mainly by Google and a community (Initial release	October 20, 2010).
 
-	As a platform, Angular includes:
+		
+		As a platform, Angular includes:
 
-	- A component-based framework for building scalable web applications
+			- A component-based framework for building scalable web applications
 
-	- A collection of well-integrated libraries that cover a wide variety of features, including routing, forms management, client-server communication, and more
-	
-	- A suite of developer tools to help you develop, build, test, and update your code
+			- A collection of well-integrated libraries that cover a wide variety of features, including routing, forms management, client-server communication, and more
 
-	- It was built with the Model-View-Controller concept in mind, though authors of the framework often called it “Model-View-*” or even “Model-View-Whatever”.
+			- A suite of developer tools to help you develop, build, test, and update your code
 
-	//----------------------------------------------------------------------------
+			- It was built with the Model-View-Controller concept in mind, though authors of the framework often called it “Model-View-*” or even “Model-View-Whatever”.
 
-	Advantages of Angular:
-	---------------------
+		//----------------------------------------------------------------------------
+
+			Advantages of Angular:
+			---------------------
 
 		- Angular presents you not only the tools but also design patterns to build your project in a maintainable way.
 
@@ -29,15 +30,13 @@
 
 		- No need to reinvent the bicycle:  With Angular, you already have lots of tools to start crafting the application right away. 
 
-		- Components are decoupled. Angular strived to remove tight coupling between various components of the application.
-
 		- Testing is at the heart. Angular is meant to be thoroughly tested and it supports both unit and end-to-end testing with tools like Jasmine and Protractor.
 
 		- Angular is mobile and desktop-ready, meaning you have one framework for multiple platforms.
 
 		- Angular is actively maintained and has a large community and ecosystem. You can find lots of materials on this framework as well as many useful third-party tools.
 
-	//--------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------
 
 	Angular Features
 	================
@@ -52,28 +51,24 @@
 
 		 It provides full stack development along with Node.js, Express.js, and MongoDB.
 
+	//-------------------------------------------------------------------------------------- 
 
+	- History and different versions of Angular
+	============================================
 
-//-----------------------------------------------------------------------------------------------------
+		-  first version of Angular was Angular1.0 (also known as AngularJS) which was released in 2010.
 
+		- Angular 2.0 was first introduced in October 2014. It was a complete rewrite of AngularJS
 
-			- History and different versions of Angular
+		- Angular 4 version was announced on 13 December 2016
 
-				-  first version of Angular was Angular1.0 (also known as AngularJS)
-				   which was released in 2010.
+		- Angular5 version was released on 1 Nov, 2017
 
-				- Angular 2.0 was first introduced in October 2014. It was a complete rewrite of AngularJS
+		- Angular 7 released on October 18, 2018
 
-				- Angular 4 version was announced on 13 December 2016
+		For more. https://github.com/angular/angular/blob/master/CHANGELOG.md
 
-				- Angular5 version was released on 1 Nov, 2017
-
-				- Angular 7 released on October 18, 2018
-
-				For more. https://github.com/angular/angular/blob/master/CHANGELOG.md
-
-
-//--------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
 
 	Environment Setup
 	==================
@@ -82,7 +77,7 @@
 
 		- Install NodeJs ( https://nodejs.org/en/ )
 
-			open command prompt and run following command to check the installation is successful or Not
+			open command prompt and run following command to check the installation is successful or not
 
 			C:\Users\archer>node -v
 				v14.18.1
@@ -117,34 +112,38 @@
 
 		- open project dir and run code . to open the project in the VS Code
 
+			F:\angular\first-ng-app>code .
+
+
 		- Run the project using the command
 
-				F:\angular\first-ng-app>ng serve --open
+				F:\angular\first-ng-app>ng serve --open 
 
-		- To See information abount the Workspace and project file structure just visit 
+
+		- To See information about the Workspace and project file structure just visit 
 
 			https://angular.io/guide/file-structure
 
-//-------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------
 
-
-		Why does Angular need Node.js?
-		----------------------------------
+		 Why does Angular need Node.js?
+		---------------------------------
 
 		Angular does not need node.js directly. Node js is used for all the build and development tools.
 
-	It is not mandatory to use node.js for developing angular application. You can very well go ahead without node.js for developing angular application but it would not be wise to do so. Let me explain you some of the reasons how node.js makes angular app development process easier for us:
+		It is not mandatory to use node.js for developing angular application. You can very well go ahead without node.js for developing angular application but it would not be wise to do so. Let me explain you some of the reasons how node.js makes angular app development process easier for us:
 
-	Node allows you to spin up a lightweight web server to host your application locally in your system.
-	NPM (Node Package Manager) comes with node.js by default. NPM allows you to manage your dependencies. So, you don’t have to worry for operations like adding a dependency, removing some, updating your package.json.
+		Node allows you to spin up a lightweight web server to host your application locally in your system.
+		NPM (Node Package Manager) comes with node.js by default. NPM allows you to manage your dependencies. So, you don’t have to worry for operations like adding a dependency, removing some, updating your package.json.
 
-	Third and the most important, npm gives you angular cli or ng cli(angular command line interface) . Angular CLI is a great tool for scaffolding your application. So, you don’t need to write boilerplates manually.
+		Third and the most important, npm gives you angular cli or ng cli(angular command line interface) . Angular CLI is a great tool for scaffolding your application. So, you don’t need to write boilerplates manually.
 
-	Angular recommends the use of TypeScript. Now, your browser does not understand TypeScript. It needs to be transpiled*** to JavaScript. Also, you need to bundle your js files and stylesheets together with the html doc so as to get the web app CLI which is ready to be hosted. Angular CLI helps you to do all these behind the scene. By default, ng cli uses webpack for bundling your application and is very helpful for beginners who have just jumped into web development with angular as it abstracts such complexities.
+		Angular recommends the use of TypeScript. Now, your browser does not understand TypeScript. It needs to be transpiled*** to JavaScript. Also, you need to bundle your js files and stylesheets together with the html doc so as to get the web app CLI which is ready to be hosted. Angular CLI helps you to do all these behind the scene. By default, ng cli uses webpack for bundling your application and is very helpful for beginners who have just jumped into web development with angular as it abstracts such complexities.
 
-		*** Transpiling is a specific term for taking source code written in one language and transforming into another language
+	*** Transpiling is a specific term for taking source code written in one language and transforming into another language
 
-	//-------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------
+
 
 		// NPM - Node Package Manager
 		-------------------------------
@@ -154,8 +153,6 @@
 			NPM is included with Node.js installation. After you install Node.js, verify NPM installation by writing the following command in terminal or command prompt.
 
 				c:\> npm -v
-
-
 
 			There are many things that npm does.
 
@@ -167,11 +164,11 @@
 
 				- In addition to plain downloads, npm also manages versioning.
 
-				- Running Tasks: The package.json file supports a format for specifying command line    tasks that can be run by using npm run <task-name>
+				- Running Tasks: The package.json file supports a format for specifying command line tasks that can be run by using npm run <task-name>
 
-	//---------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------
 
-		// What is the use of polyfills.ts file in Angular?
+	// What is the use of polyfills.ts file in Angular?
 
 		Angular is built on the latest standards of the web platform. Targeting such a wide range of browsers is challenging because they do not support all features of modern browsers.
 
@@ -181,24 +178,24 @@
 
 		For ex. Animation library relies on the standard web animation API, which is only available in chrome and Firefox today. You will need a polyfill to use animations in other browsers.
 
-
-	//----------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------
 
 		// What is module bundler?
 
 
-		Module bundlers are tools frontend developers used to bundle JavaScript modules into a single JavaScript files that can be executed in the browser.
+		Module bundlers are tools for frontend developers used to bundle JavaScript modules into a single JavaScript files that can be executed in the browser.
 
 		Examples of modern module bundlers are: webpack, rollup, fusebox, parcel, etc.
 
 		Module bundler is required because:
 
 		Browser does not support module system, although this is not entirely true nowadays
+		
 		It helps you manage the dependency relationship of your code, it will load modules in dependency order for you.
+
 		It helps you to load your assets in dependency order, image asset, css asset, etc.
 
-
-	//------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------
 
 		// What Is Lint Code? And Why Is Linting Important?
 
@@ -209,20 +206,20 @@
 		Linting is important to reduce errors and improve the overall quality of your code. Using lint tools can help you accelerate development and reduce costs by finding errors earlier.
 
 
-	// ------------------------------------------------------------------------
+	// ==================================================================================
 
-		TypeScript In Depth: 
+		TypeScript: just ref the Git repo.
 
-	// ----------------------------------------------------------------------
+	// ==================================================================================
 
-			// Default Folder Structure 
+		// Default Folder Structure 
 
-
+ 
 		1. node_module: 
 			- Provides npm packages to the entire workspace. Workspace-wide node_modules dependencies are visible to all projects.
 			- This is the folder where all modules and libraries resides
 			- Add/Remove the module packages
-			- We will not touch this folder for development purpose
+			- We will not touch this folder for development purpose.
 
 		2. src:
 			- This is the main work area/ app code resides inside this folder
@@ -232,7 +229,7 @@
 					- app.module.ts : It means this is module (collection of component, services, pipe etc)
 					- app.component.spec.ts : These are unit test scripts
 					- app.component.css : css file for perticular component.
-					- app.component.html :  html file for perticular component
+					- app.component.html : html file for perticular component
 
 				- assets : Contains image and other asset files to be copied as-is when you build your application.
 				- environments: 
@@ -252,13 +249,12 @@
 
 				- test.ts	
 						The main entry point for your unit tests, with some Angular-specific configuration. You don't typically need to edit this file.
-
+		
 		3. .browserslistrc
 				 Share target browsers between different front-end tools, like Autoprefixer, Stylelint and babel-preset-env
 
 		4. .editorconfig: 
 				EditorConfig helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs. The EditorConfig project consists of a file format for defining coding styles and a collection of text editor plugins that enable editors to read the file format and adhere to defined styles. EditorConfig files are easily readable and they work nicely with version control systems.
-
 
 		5. .gitignore
 				Specifies intentionally untracked files that Git should ignore.
@@ -289,4 +285,301 @@
 		14. tslint.json	
 				Application-specific TSLint configuration.
 
-	// ------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------
+	
+		// Exact working of ypur angulat project: 
+
+				Diagram
+
+//=========================================================================================================
+
+	//  Todo app  -- Application
+
+
+		- create the new application using command (f:\angular)
+
+			F:\angular>ng new todo-app
+
+				-> say no to routing
+				-> select CSS as style
+
+				(The Angular CLI Will Create the project with std file structure)
+
+
+		- open the project folder and again open it with vs code
+
+			F:\angular>cd todo-app
+
+			F:\angular\cd todo-app>code .
+
+			F:\angular\cd todo-app>ng serve
+
+
+
+	- Two json files
+		- package.json:
+		- angular.json:
+
+	- src:
+		- index.html
+		- main.ts
+		- styles.css
+
+		- app: you can add more component here.
+
+			for each component: 
+				- app.component.css 	- style
+				- app.component.html 	- structure
+				- app.component.ts 		- logic
+				- app.component.spec.   - Testing
+
+			- module.ts
+
+		- The app.component is the brain, variable defined over here can be accessed in the app.component.html using the javascript expression {{title}}
+
+			- Note the variables from AppComponent are directly accessible in the app.component.html with the help of javascript expression
+
+
+		- Add css to app.component.css
+
+
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-text {
+  display: inline;
+  margin: 0;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 10px;
+}
+
+.list ul li button {
+  position: absolute;
+  right: 0%;
+  background: #f34541;
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 0.4rem;
+  display: inline-block;
+  border: none;
+}
+
+.add-btn {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #7313cb;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 0.4rem;
+  display: inline-block;
+  border: none;
+}
+
+.app-title {
+  text-align: center;
+  color: #c1c1c1;
+  font-size: 70px;
+}
+ul {
+  /* remove default padding and margin from ul*/
+  margin: 0px;
+  padding: 0px;
+}
+.list ul li {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: #000000;
+  background-color: #ffffff;
+  line-height: 30px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #cccccc;
+  padding: 10px;
+  position: relative;
+}
+
+.container {
+  color: #fff;
+  max-width: 500px;
+  margin: auto;
+}
+
+
+
+	- copy the logo (logo.png) in the assets folder
+
+	- open the app.component.html, delete all the contents
+
+	- Now We have to write our own code
+
+
+<div style="text-align: center">
+  <img
+    src="../assets/logo.png"
+    alt="Logo"
+    width="100"
+    height="100"
+    class="logo"
+  /> 
+  <h1 class="app-title"> Todo List </h1>
+</div>
+
+<div class="container">
+  Add todo ....
+  <br />
+  <input type="text" class="input-text"  placeholder="Type a Todo" 
+  [(ngModel)]="todovalue"
+  (keyup.enter)="addItem()"
+  />
+  <button class="add-btn" (click)="addItem()">Add Todo</button>
+
+  <div class="list">
+    <ul>
+       <li *ngFor="let item of list">
+       <input type="checkbox" name="isDone" [(ngModel)]="item.isDone"/> 
+        {{item.value}}
+        <button class="btn" (click)="deleteItem(item.id)"> Delete </button>
+      </li> 
+    </ul>
+  </div>
+</div>
+
+
+	- create the todo.ts in app folder, write the interface over there
+
+		export interface Todo {
+		    id: number;
+		    value: string;
+		    isDone: boolean;
+		}
+
+
+	- Import above tot in app.component, and Write a methids to insert and delete the items
+
+import { Component } from '@angular/core';
+import { Todo } from "./todo";
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'first-ng-app';
+  todovalue : string = "";
+  list : Todo[] = [];
+
+  ngOnInit(){
+    this.list = [];
+    this.todovalue = "";
+  }
+
+  addItem(){
+    if(this.todovalue==""){
+      const newItem : Todo ={
+        id : Date.now(),
+        value : this.todovalue,
+        isDone : false
+      };
+      this.list.push(newItem);
+      console.log(this.list);
+    }
+    this.todovalue="";
+  }
+
+  deleteItem(id : number){
+    this.list = this.list.filter( item => item.id !==id);
+  }
+}
+
+	
+
+	- add the formmodule in imports of file app.module.ts
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+
+	- Save all files and use ng serve to run the code
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
