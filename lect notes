@@ -288,7 +288,7 @@
 
 //----------------------------------------------------------------------------------------------------
 	
-		// Exact working of ypur angulat project: 
+		// Exact working of your angulat project: 
 
 				Diagram
 
@@ -528,23 +528,275 @@ export class AppModule { }
 
 	- Save all files and use ng serve to run the code
 
+	//===================================================================================================================
+
+
+		- Module: 
+
+			A module is a software component or part of a program that contains one or more routines. One or more independently developed modules make up a program. An enterprise-level software application may contain several different modules, and each module serves unique and separate business operations.
+
+				Means Simply Collection of Things
+
+			An Angular app is made up of three types of artifacts: components (which includes directives and pipes), child modules, and services. An Angular module encapsulates these artifacts as one compilation unit.
+	
+
+			Modules are a way to organize an app and extend its capabilities with external libraries. Angular libraries are also built using Angular modules. Examples include FormsModule, HttpClientModule, and RouterModule. Many external libraries are also available as Angular modules, for example, Material Design, Ionic, and AngularFire2.
+
+			Angular components, directives, and pipes focus on particular feature areas, business domains, workflows, or common utilities. Angular services might be internally developed, like something you'd develop for yourself, or can be imported from external sources, such as the Angular router and HTTP client.
+
+				( * Pipes are for formatting data, and directives are to alter the behavior/appearance of 
+				    an element
+				  * Routing basically means navigating between pages
+				)
+
+
+			Modules can be eagerly loaded when the app starts or lazily loaded asynchronously by the router.
+
+
+			- An Angular Module's Metadata:
+			------------------------------
+
+			An Angular module's metadata, which is specified using the @NgModule decorator, does the following:
+
+				- Declares which components, directives, and pipes belong to the module
+
+				- Makes some of those components, directives, and pipes public so that other module's component templates can use them.
+
+				- Imports other modules with the components, directives, and pipes that components in the current module need
+
+				- Provides services that other app components 
+
+
+			Every Angular app has at least one module, which is called the root module or app-level module. You bootstrap this app-level module or root module to launch the application.
+
+			Root Module: 
+	
+			import { BrowserModule } from '@angular/platform-browser';
+			import { NgModule } from '@angular/core';
+
+			import { AppComponent } from './app.component';
+
+			// @NgModule decorator with its metadata
+			@NgModule({
+			  declarations: [AppComponent],
+			  imports: [BrowserModule],
+			  providers: [],
+			  bootstrap: [AppComponent]
+			})
+			export class AppModule {}
+
+
+			Notice that in the NgModule directive, you are passing an object that has the following four array type properties:
+
+			- declarations: In this array, you specify which components, directives, and pipes belong to this module.
+
+			- imports: In this array, you import eagerly loaded modules.
+			
+			- providers: In this array, you specify all the services that can be used across the app in any component, directive, or pipe.
+
+			- bootstrap: In this array, you specify the component that should be loaded at the start of the app.
 
 
 
+			Any feature module will have the first three arrays (declarations, imports, providers) but not the fourth array (bootstrap).
+
+		In a small app, the root module or app-level module is enough to organize different components, directives, pipes, and services. But as the app grows, you should refactor the root module into feature modules, which represents related functionality. You may then import these modules in the app-level module if you want these modules to be eagerly loaded or in the routing module through routes if you want them to be lazily loaded.
 
 
 
+		- What is {Eager Loading, Lazy Loading, Pre-Loading} in Angular?
+
+			1. What is Eager Loading?
+			Feature modules under Eager Loading would be loaded before the application starts. This is the default module-loading strategy.
+			
+			2. What is Lazy Loading?
+			Feature modules under Lazy Loading would be loaded on demand after the application starts. It helps to start application faster.
+			
+			3. What is Pre-Loading?
+			Feature Modules under Pre-Loading would be loaded automatically after the application starts
+
+
+		- Types of Feature Modules
+		---------------------------
+
+		There are following types of feature modules:
+
+			- Domain Feature Modules
+			- Routed Feature Modules
+			- Routing Modules
+			- Service Feature Modules
+			- Widget Feature Modules
+			- Shared Feature Modules
+
+
+			- Domain Feature Modules
+
+			The user experience, such as editing an event or placing an order, for a particular app is delivered by a domain feature module.
+
+			Domain feature modules rarely have providers. If they have providers, the lifetime of the provided services should be the same as the lifetime of the module. Domain feature modules are imported exactly once by a larger feature module.
+
+			They might be imported by the root AppModule of a small application that lacks routing.
+
+				- Routed Feature Modules
+
+			In routed feature modules, the top components are the targets of router navigation routes. Their components never appear in the template of an external component. Routed feature modules rarely have providers. If they have providers, the lifetime of the provided services should be the same as the lifetime of the module.
+
+				- Routing Modules
+
+			The routing module define routes and provides the routing configuration. It adds router configuration to the module's import and separates routing concerns from its companion module. A routing module should only be imported by its companion module, and it does not have its own declarations.
+
+				- Service Feature Modules
+
+			Utility services such as messaging and accessing data are provided by service feature modules. These modules consist of providers only and have no declarations. The root AppModule is the only module that should import service modules.
+
+				- Widget Feature Modules
+
+			Components, directives, and pipes are made available to external modules using widget feature modules. A widget feature module consists entirely of declarations and rarely has any providers.
+
+				- Shared Feature Modules: 
+
+			A shared NgModule makes a set of components, directives, and pipes available to other NgModules.
 
 
 
+		//-------------------------------------------------------------
+
+
+		- Creating your Own Module:
+
+		- Run the command
+
+				> ng generate module student  (or ng g m student)
+
+					It will create the module student under the src/app/student having file student.ts
+
+					import { NgModule } from '@angular/core';
+					import { CommonModule } from '@angular/common';
+
+					@NgModule({
+					  declarations: [],
+					  imports: [
+					    CommonModule
+					  ]
+					})
+					export class StudentModule { }
+
+
+			- Now Just import the module into the app module(root module), There are two ways, lets see first manually
+
+			- open the app.module.ts and import the StudentModule and add StudentModule in to imports array
+
+				import { NgModule } from '@angular/core';
+				import { BrowserModule } from '@angular/platform-browser';
+				import { StudentModule } from './student/student.module';
+				import { AppComponent } from './app.component';
+
+				@NgModule({
+				  declarations: [
+				    AppComponent
+				  ],
+				  imports: [
+				    BrowserModule,
+				    StudentModule
+				  ],
+				  providers: [],
+				  bootstrap: [AppComponent]
+				})
+				export class AppModule { }
+
+
+	//-----------------------------------------------------------------------------------------------
+
+		// Using Components in Angular
+
+				An Angular app is made up of three types of artifacts: components (which includes directives and pipes), child modules, and services. An Angular module encapsulates these artifacts as one compilation unit.
+
+				Note that the collection of component is webpage. there are two different
+				approches of page design:
+
+					- Traditional Approch (DOM Based):
+
+						- First you have to write the html which is the static portion of your application.
+
+						- Then you have to write the JavaScript which is the dynamic portion of your application.
+
+							JavaScript is embeeded into the html and when the html loads, javascript also gets loaded. Javascript manipulates the DOM and you will get the dynamic functionality.
+
+							Means, There is implicit divide.
+
+						suppose, you want to display the date and time
+
+				html 									JavaScript
+
+	- Create the <div> and <p>					- code to get the date and time
+	- Add button 								- update the <p> DOM Element
+												- Need the function to handle the button click
+
+
+			<html>
+				<head>
+					<script>
+						function printDate(){
+							const d=new date();
+							document.getElementById("demo").innerHTHL=d;
+						}
+					</script>
+				</head>
+
+				<body>
+					<h2> Date and Time Display </h2>
+					<p id="demo"> display here </p>
+					<button onclick="printdate()"> Cilck Me </buttion>
+				</body>
+			</html>
+
+
+	//--------------------------------------------------------------------------------
+
+		- Component based Approch:
+		The concept of component-based design envisions building websites out of ready-made elements (components), which are designed and programmed segments to be used as building blocks for your website. What is more, thanks to their modular nature, they can be easily reused on all subpages. 
+
+			fig. cmpmodel
+
+
+			which you can assemble in various ways to build your subpages by composing and arranging them in various ways in order to achieve the desired goal. A component is like a ready-made element, which you can fill with any content or add graphic elements to it. What is more, components are not tied to specific subpages, which means that you can use them throughout your website. Examples of such components include text blocks, a photo banner, a contact form, or a call-to-action block.
+
+
+			- Advantages of using component-based websites include:
+			-------------------------------------------------------
+
+				- One of the most important ones is definitely versatility in reusing these building blocks since they enable you to freely shape and rearrange your website
+
+				- By building a component-based website, in reality, you’re building a website management system.
+			
+				- reusing components on various subpages, all changes in design or code modifications of a given element are easier
+
+				- minimising the cost of managing the website, as well as introducing changes in the content and structure of its subpages,
+				
+				- simplicity and intuitiveness of the components and their use
+
+				- ease of adding new blocks to a website based on ready-made components, enabling easy expansion according to the needs and demands
+
+				- easy website administration and management in companies, where component-based websites can be managed by a group of people. 
+
+
+			- Creating our Own Component: 
+
+				A component controls a patch of screen called a view.
+
+				or 
+				
+				The component is a self-sufficient piece of a web application that can be plugged into anywhere, that knows what to do.
+
+
+					fig. component_arc
 
 
 
+				>ng generate component clock (will create the component in the app)
 
 
-
-
-
+				project : module-component-demo
 
 
 
