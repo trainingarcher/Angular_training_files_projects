@@ -1,0 +1,32 @@
+
+        <!-- Passing single string to child (Using @input() ) -->
+
+<app-child [name]="data"></app-child>
+<input type="text" (keyup.enter)="passValue($event)"/>
+<hr>
+
+        <!-- Passing list of string to child (Using @input() ) -->
+
+<h3>Passing List </h3>
+Enter the name of friend and hit enter key <br/>
+<input  type="text" (keyup.enter)="addToFriendList($event)" />
+<app-friendlist [list]="fndlist"></app-friendlist>
+
+        <!-- Passing data from child to parent(Using @output() ) -->
+<hr><hr>
+<h3> Color Dish</h3>
+<app-colordish (colorEvent)="afterColorAdd($event)"></app-colordish>
+<ul>
+   <li *ngFor="let color of colors">
+        {{color}}
+   </li>
+</ul>
+
+        <!-- Using @input() and @output() -->
+<hr><hr>
+<h3>Task Manager</h3>
+Enter the task and hit enter key <br/>
+<input type="text" (keyup.enter)="addTask(taskitems.value)" #taskitems />
+<app-taskmaster [tasks]="tasks" (deltask)="removeTask($event)"></app-taskmaster>
+<hr>
+<p>{{deleteditem}} deleted from task </p>
