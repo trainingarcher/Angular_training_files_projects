@@ -993,37 +993,468 @@ export class AppModule { }
 
 	  // Using @output() decorator: passing data from child to parent.
 
-	  // Combined Use of @Input() and @Output() Decorators 
+	  // Combined Use of @Input() and @Output() Decorators   
+
+	 // Two Way data binding using the  @Input() and @Output() Decorators 
+
+	 	 // ref shared project iodecoratordemo
+
+	 		components:
+
+	 			- child 
+	 			- colordish
+	 			- friendlist
+	 			- taskmaster
+	 			- productprice
+
+
+//======================================================================
+
+	// Component Life Cycle Hook:
+
+	The life cycle hooks are the methods that angular invokes on directives and components as it creates, changes, and destroys them. Using life-cycle hooks we can fine-tune the behavior of our components during creation, update, and destruction.
+
+		Angular lets us know when these events happen using lifecycle hooks
+
+			The Angular life cycle hooks are nothing but callback function, which angular invokes when a certain event occurs during the component’s life cycle.
+
+	
+		For example,
+
+				- ngOnInit when Angular initializes the component for the first time.
+				- When a component’s input property change, Angular invokes ngOnChanges
+				- If the component is destroyed, Angular invokes ngOnDestroy
+
+
+			Angular lifecycle hooks
+			=======================
+
+			Here is the complete list of life cycle hooks, which angular invokes during the component life cycle. Angular invokes them when a certain event occurs.
+
+			ngOnChanges
+			ngOnInit
+			ngDoCheck
+			ngAfterContentInit
+			ngAfterContentChecked
+			ngAfterViewInit
+			ngAfterViewChecked
+			ngOnDestroy
+
+
+			Change detection Cycle:
+			------------------------
+
+				Before diving into the lifecycle hooks, we need to understand the change detection cycle.
+
+				Change detection is the mechanism by which angular keeps the template in sync with the component
+
+				Angular raises the life cycle hooks during the important stages of the change detection  mechanism.
+
+				Constructor
+				-----------
+
+					Life Cycle of a component begins, when Angular creates the component class. First method that gets invoked is class Constructor.
+
+					Constructor is neither a life cycle hook nor it is specific to Angular.  It is a Javascript feature. It is a method which is invoked, when a class is created. 
+
+					Angular makes use of a constructor to inject dependencies.
+
+
+				ngOnChanges
+				----------
+					The Angular invokes ngOnChanges life cycle hook whenever any data-bound input property of the component or directive changes.  
+
+
+				ngOnInit
+				---------
+					The Angular raises the ngOnInit hook, after it creates the component and updates its input properties. It raises it after the ngOnChanges hook.
+
+					This hook is fired only once and immediately after its creation (during the first change detection).
+
+
+				ngDoCheck
+				---------
+					The Angular invokes the ngDoCheck hook event during every change detection cycle. This hook is invoked even if there is no change in any of the properties.
+
+					Angular invokes it after the ngOnChanges & ngOnInit hooks.
+
+
+				ngAfterContentInit
+				------------------
+					ngAfterContentInit Life cycle hook is called after the Component’s projected content has been fully initialized.
+
+			  	ngAfterContentChecked
+				----------------------
+					ngAfterContentChecked Life cycle hook is called during every change detection cycle after Angular finishes checking of component’s projected content. Angular also updates the properties decorated with the ContentChild and ContentChildren before raising this hook. Angular calls this hook even if there is no projected content in the component
+
+				ngAfterViewInit
+				-----------------
+					ngAfterViewInit hook is called after the Component’s View & all its child views are fully initialized. Angular also updates the properties decorated with the ViewChild & ViewChildren properties before raising this hook. 
+
+
+				ngAfterViewChecked
+				-------------------
+					The Angular fires this hook after it checks & updates the component’s views and child views. This event is fired after the ngAfterViewInit and after that during every change detection cycle
+
+
+				ngOnDestroy
+				------------
+					This hook is called just before the Component/Directive instance is destroyed by Angular
 
 
 
+			How to Use Lifecycle Hooks:
+
+				- Import Hook interfaces
+				- Declare that Component/directive Implements lifecycle hook interface
+				- Create the hook method
+
+				The Order of Execution of Life Cycle Hooks
+				The Angular executes the hooks in the following order
+
+				On Component Creation
+
+				OnChanges
+				OnInit
+				DoCheck
+				AfterContentInit
+				AfterContentChecked
+				AfterViewInit
+				AfterViewChecked
+
+				When the Component with Child Component is created
+
+				OnChanges
+				OnInit
+				DoCheck
+				AfterContentInit
+				AfterContentChecked
+					Child Component -> OnChanges
+					Child Component -> OnInit
+					Child Component -> DoCheck
+					Child Component -> AfterContentInit
+					Child Component -> AfterContentChecked
+					Child Component -> AfterViewInit
+					Child Component -> AfterViewChecked
+				AfterViewInit
+				AfterViewChecked
+				
+				After The Component is Created
+
+				OnChanges
+				DoCheck
+				AfterContentChecked
+				AfterViewChecked
+
+
+//============================================================================
+//============================================================================
+
+	// Directives AND Pipes:
+	//=======================
+
+		Directives: 
+		-----------
+
+		The Angular directive helps us to manipulate the DOM. You can change the appearance, behavior, or layout of a DOM element using the directives. They help you to extend HTML. 
+
+		The Angular directives are classified into three categories based on how they behave. 
+
+
+		- Components / Component Directives: directives with a template. This type of directive is the most common directive type.
+				- every angular directive have atleast one component directive
+				- have its own templet
+				- events attached
+				- AppComponent is the example
+
+		- Structural Directives: directives that change the DOM layout by adding and removing DOM elements.
+				- updates structure of a view
+				- ngFor, ngIf and ngSwitch
+
+		- Attribute Directives: directives that change the appearance or behavior of an element, component, or another directive.
+				- ngStyle, ngClass, ngModel
+
+		- Custom Directives:
+
+					// ----------------------------------------------------------------------------
+
+			- Component Directives
+			------------------------
+
+				Components = Directive + Template
+
+			Components are directives that include a template that is rendered in the place of the component. Components inherit all of the functionality and usability of directives plus a provided template. Angular uses a HTML-like template syntax that enables web developers to get started quickly with Angular. Templates can also be styled using vanilla CSS, Scss or LESS. Simply modify the extension of the file and Angular will compile the Scss or LESS.
+
+			We'll specify the template and styles using the @Component() decorator's metadata. For example, we can specify the template and CSS inline in the metadata:
+
+			@Component({
+			  selector: 'app-hello-world',
+			    template: `<h1>Hello, World!</h1>`,
+			    styles: [`h1 { font-weight: bold; }`],
+			})
+			export class HelloWorldComponent { }
+
+
+-----------------------------------------------------------------------------
+
+				- Structural Directives: directives that change the DOM layout by adding and removing DOM elements.
+					asterisk (*) used to represent the structural directive
+
+
+				Commonly used structural directives
+
+				- ngFor:
+				---------
+
+					The ngFor is an Angular structural directive, which repeats a portion of the HTML template once per each item from an iterable list (Collection). 
+
+					Example of ngFor
+
+					 
+					<tr *ngFor="let customer of customers;">
+					    <td>{{customer.customerNo}}</td>
+					    <td>{{customer.name}}</td>
+					    <td>{{customer.address}}</td>
+					    <td>{{customer.city}}</td>
+					    <td>{{customer.state}}</td>
+					</tr>
+
+
+				- ngIf:
+				--------
+					The ngIf Directives is used to add or remove HTML elements based on an expression. The expression must return a boolean value. If the expression is false then the element is removed, else the element is inserted
+
+					Example of ngIf
+					 
+					<div *ngIf="condition"> 
+					    This is shown if condition is true
+					</div>
+
+				- ngSwitch
+				-------
+					The ngSwitch directive lets you add/remove HTML elements depending on a match expression. ngSwitch directive used along with ngSwitchCase and ngSwitchDefault
+
+					The example of ngSwitch  (getting my voice - > msg me)
+
+					 
+					<div [ngSwitch]="Switch_Expression"> 
+					    <div *ngSwitchCase="MatchExpression1”> First Template</div>
+					    <div *ngSwitchCase="MatchExpression2">Second template</div> 
+					    <div *ngSwitchCase="MatchExpression3">Third Template</div> 
+					    <div *ngSwitchCase="MatchExpression4">Third Template</div> 
+					    <div *ngSwitchDefault?>Default Template</div>
+					</div>
+
+		//--------------------------------------------------------------------------
+
+			- Attribute Directives: directives that change the appearance or behavior of an element, component, or another directive.
+
+			- ngStyle
+				ngStyle is used to change the multiple style properties of our HTML elements. We can also bind these properties to values that can be updated by the user or our components.
+
+				Example of ngStyle
+
+			<div [ngStyle]="{'color': 'blue', 'font-size': '24px', 'font-weight': 'bold'}">
+				some text
+			</div>
+
+
+			- ngClass
+					The ngClass is used to add or remove the CSS classes from an HTML element. Using the ngClass one can create dynamic styles in HTML pages
+
+					Example of ngClass
+
+					<div [ngClass]="'first second'">...</div>
+
+			- ngModel
+					The ngModel directive is used the achieve the two-way data binding. 
+
+					What is ngModel
+						The Angular uses the ngModel directive to achieve the two-way binding on HTML Form elements. It binds to a form element like input, select, selectarea. etc.
+
+						Internally It uses the ngModel in property, binding to bind to the value property and ngModelChange which binds to the input event.
+
+					How to use ngModel
+						The ngModel directive is not part of the Angular Core library. It is part of the FormsModule library. You need to import the FormsModule package into your Angular module.
+
+						In the template use the following syntax
+
+						<input type="text" name="value" [(ngModel)]="value">
+						 
+						The ngModel directive placed inside the square & parentheses as shown above. This is assigned to the Template Expression. Template Expression is the property in the component class
+						(REF- todo-app)
 
 
 
+						examples: directivedemo project
 
 
 
+//========================================================================================
+
+		Pipes:
+		======
+
+		A simple definition of pipe- it is a decorative function in Angular used to manipulate DOM. It takes an untransformed value as input and returns a transformed value as output.
+
+		or 
+
+		Angular Pipes takes data as input and formats or transform the data to display in the template. We use them to change the appearance of the data before presenting it to the user. The most common use case of pipes is displaying the dates in the correct format as per the user’s locale.
+
+		Various built-in pipes are provided by Angular
+
+		 AsyncPipe 		CurrencyPipe 		 DatePipe 		 DecimalPipe 		 I18nPluralPipe 
+
+		 I18nSelectPipe  		JsonPipe  		KeyValuePipe  		LowerCasePipe  		PercentPipe
+
+		  SlicePipe  		TitleCasePipe  		UpperCasePipe
+
+
+	Angular Pipes Syntax
+
+		The syntax of the pipe is as follows
+
+		Expression | pipeOperator[:pipeArguments]
+		 
+		Where
+
+		Expression: is the expression, which you want to transform
+		| : is the Pipe Character
+		pipeOperator : name of the Pipe
+		pipeArguments: arguments to the Pipe
+
+
+	How to use pipe in code?
+
+			The example code below demonstrates the use of date pipe. See how the output is manipulated on the DOM.
+
+			app.component.ts
+			----------------
+			 
+			cdate: Date;
+			 
+			constructor() {
+			  this.cdate = new Date();
+			}
+			 
+			app.component.html
+			------------------
+			 
+			<b>Date Pipe Example: </b>
+			<span>{{ cdate | date: 'shortDate'}}</span>
+			 
+			Result with Date Pipe
+
+			Date Pipe Example: 11/07/21
+
+//----------------------------------------------------------------------------
+
+			Pure and Impure Pipe
+
+				Pure pipe is a type of function which runs only when a change has been done in the input value. They are called as pure because they do not run every time a state is changed or a change detection happened. They are only called when a value is changed. This improves the performance (see below case study).
+ 
+				import { Pipe, PipeTransform } from '@angular/core';
+				 
+				@Pipe({
+				  name: 'customUpper'
+				})
+				export class CustomUpperPipe implements PipeTransform {
+				 
+				  transform(value: string): string {
+				    console.log('Custom pipe is called');
+				    return value.toUpperCase();
+				  }
+				}
+				 
+				Impure pipe is a type of function which runs for every Angular lifecycle events as well as whenever state or input value changes.
+
+				@Pipe({
+				  name: 'customUpper',
+				  pure: false  // <--- this will convert a pure pipe to impure one
+				})
+				 
+				It is not advisable to use a method to manipulate your DOM. Use pipes instead of methods if you have a big application and want to improve performance.
+
+
+	Example: 
+
+				<!-- Built-in Pipes -->
+				
+				UpperCasePipe & LowerCasePipe
+				As the name suggests, these pipes transform the string to Uppercase or lowercase
+
+				{{str|uppercase}} <br/>
+				{{str|lowercase}}
+				<hr>
+
+
+				<!-- date -->
+				<h3>Unformatted Current date: {{currdate}}</h3><br/>
+				<h3>Formatted Current date: {{currdate|date}}</h3>
+				<hr>
+
+
+				<!-- Passing arguments to pipes -->
+				We can also pass optional arguments to the pipe. The arguments are added to the pipe using a colon (:) sign followed by the value of the argument. If there are multiple arguments separate each of them with the colon (:). For example, we can pass the format as the argument to the date pipe, which is Optional. The medium is one of the valid value of the format argument, which displays the date in yMMMdjms format. The example code is as shown below.
+
+					{{toDate | date:'medium'}}
+
+				
+				<h3>Formatted Current date: {{currdate|date:'medium'}}</h3>
 
 
 
+				<!-- Chaining Pipes -->
+				Pipes can be chained together to make use of multiple pipes in one expression. For example in the following code, the toDate is passed to the Date Pipe. The output of the Date pipe is then passed to the uppercase pipe.
+
+				toDate | date | uppercase
+
+				<h3>Formatted Current date: {{currdate|date:'medium'|uppercase}}</h3>
+
+
+				<!-- Example of Datepipe -->
+
+				The Date pipe formats the date according to locale rules. The syntax of the date pipe is as shown below
+
+					date_expression | date[:format]
+					 
+					Where
+
+					- date_expression is a date object or a number
+					- date is the name of the pipe
+					- format is the date and time format string which indicates the format in which date/time components are displayed.
+
+				<p>medium : {{currdate | date:'medium'}} </p>
+				<p>short : {{currdate | date:'short'}} </p>
+				<p>fullDate : {{currdate | date:'fullDate'}} </p>
+				<p>longDate : {{currdate | date:'longDate'}} </p>
+				<p>mediumDate : {{currdate | date:'mediumDate'}} </p>
+				<p>shortDate : {{currdate | date:'shortDate'}} </p>
+				<p>mediumTime : {{currdate | date:'mediumTime'}} </p>
+				<p>dd-MM-y : {{currdate | date:'dd-MM-y'}} </p>
+				<p>dd-MM-yy HH:mm : {{currdate | date:'dd-MM-yy HH:mm'}} </p>
 
 
 
+				<!-- SlicePipe
+				Creates a new List or String containing a subset (slice) of the string or array.  -->
 
+				Syntax
 
+					array_or_string_expression | slice:start[:end]
+					 
+					Where
 
+					- array_or_string_expression is the string to slice
+					- slice is the name of the pipe
+					- start is the start position/index from where the slicing will start
+					- end is the ending index/position in the array/string
 
+					The slice pipes take two arguments. The first argument start is the starting index of the string/array. The second argument end is the ending index of the string/array. If the start or end index is negative then the index is counted from end of the string/array
 
-
-
-
-
-
-
-
-
-
-
+				<p>Complete String :{{str}} </p>
+				<p>Example 1 :{{str | slice:11:20}} </p>
+				<p>Example 2 :{{str | slice:-9}} </p>
 
 
 
