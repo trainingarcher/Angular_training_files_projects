@@ -1458,6 +1458,686 @@ export class AppModule { }
 
 
 
+				<!-- DecimalPipe / NumberPipe -->
+					The Decimal Pipe is used to Format a number as Text. This pipe will format the number according to locale rules.
+
+					Syntax
+					 
+					number_expression | number[:digitInfo]
+					 
+					Where
+
+					number_expression is the number you want to format
+
+					number is the name of the pipe
+
+					digitInfo is a string which has the following format
+
+					{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}
+
+						Where
+
+						minIntegerDigits is the minimum number of integer digits to use. Defaults to 1.
+
+						minFractionDigits is the minimum number of digits after fraction. Defaults to 0.
+
+						maxFractionDigits is the maximum number of digits after fraction. Defaults to 3.
+
+				<p> Unformatted :{{num}}</p>
+				<p> Formatted :{{num | number}}</p>
+				<p> Formatted :{{num | number:'3.1-2'}}</p>
+				<p> Formatted :{{num | number:'7.1-5'}} </p>
+
+
+			<!-- PercentePipe
+				Formats the given number as a percentage according to locale rules. -->
+
+
+					number_expression | percent[:digitInfo]
+ 
+ 					Where
+
+					number_expression is the number you want to format
+
+					percent is the name of the pipe
+
+					digitInfo is a string which has the following format. It is similar to used in decimal pipe
+
+				<p>Unformatted :{{per}} </p>
+				<p>Example 1 :{{per | percent }} </p>
+				<p>Example 2 :{{per | percent:'1.2-2'}} </p>
+
+
+				<!-- CurrencyPipe -->
+
+				Formats a number as currency using locale rules.
+ 
+					number_expression | currency[:currencyCode[:symbolDisplay[:digitInfo]]]
+					 
+					Where
+
+					number_expression currency to format a number as currency.
+
+					Currency is the name of the pipe
+
+					currencyCode is the ISO 4217 currency code, such as USD for the US dollar and EUR for the euro.
+
+					symbolDisplay is a boolean indicating whether to use the currency symbol or code. Use true to display symbol and false to use code
+
+					digitInfo is similar to the one used in decimal pipe
+
+				<p>Unformatted :{{cur}} </p>
+				<p>Example 1 :{{cur | currency }} </p>
+				<p>Example 2 :{{cur | currency:'INR':true:'4.2-2'}} </p>
+
+
+
+
+//=====================================================================================
+
+	// Services and Dependency Injection: 
+
+		// What is an service and Angular Service
+
+	Services allow us to create reusable code and use it every component that needs it. The Services can be injected into components and other services using the dependency injection system. The dependencies are declared in the Module using the Provider’s metadata. The Angular creates a tree of injector & Providers that resembles the Component Tree. This is called the hierarchical pattern.
+
+	or 
+
+	Service is a class that has the purpose of Providing a Service to a Component, Directive, or to another Service. The Service may be fetching data from the back end, running a business logic, etc
+
+	or
+
+	Service is a piece of reusable code with a focused purpose. A code that you will use in many components across your application
+
+	suppose, Our components need to access the data. You can write data access code in each component, but that is very inefficient and breaks the rule of single responsibility. The Component must focus on presenting data to the user. The task of getting data from the back-end server must be delegated to some other class. We call such a class a Service class. Because it provides the service of providing data to every component that needs it.
+
+
+		Angular Services are used for
+				
+				- Features that are independent of components such a logging services
+				- Share logic or data across components
+				- Encapsulate external interactions like data access
+
+
+		Advantageous of Angular Service
+
+				- Services are easier to test.
+				- They are easier to Debug.
+				- We can reuse the service at many places.
+
+//------------------------------------------------------------------------------------------------
+
+	Creating a Service in Angular: (Demo):
+
+	- Create a new file under the folder src/app and call it product.ts
+
+			export class Product { 
+	 
+			    constructor(productID:number,    name: string ,   price:number) {
+			        this.productID=productID;
+			        this.name=name;
+			        this.price=price;
+			    }
+			 
+			    productID:number;
+			    name: string;
+			    price:number;
+			 
+			}
+
+
+	- build an Angular Service, which returns the list of products.  i.e. Create a new file  under the folder src/app and call it product.service.ts 
+
+
+			import { Product } from './product'
+			export class ProductService{
+			 
+			    public  getProducts() {
+			 
+			        let products:Product[];
+			 
+			        products=[
+			            new Product(1,'Memory Card',500),
+			            new Product(2,'Pen Drive',750),
+			            new Product(3,'Power Bank',100)
+			        ]
+			 
+			        return products;               
+			    }
+			}
+
+
+			(we have hardcoded the products. In real life, you would send an HTTP GET request to your back end API to get the data)
+
+
+	-  invoke the ProductService from the component. i.e the app.componet.ts
+		
+
+			import { Component } from '@angular/core';
+			import { Product } from './product';
+			import { ProductService } from './product.service';
+
+			@Component({
+			  selector: 'app-root',
+			  templateUrl: './app.component.html',
+			  styleUrls: ['./app.component.css']
+			})
+			export class AppComponent {
+			  title = 'servicedemo';
+
+			  products:Product[] = [];
+			  productService;
+
+			  constructor(){
+			    this.productService=new ProductService();
+			  }
+
+			  getProducts() {
+			    
+			    this.products = this.productService.getProducts();
+			  }
+			}
+
+		( In real-life Angular Apps, we use the Dependency Injection in Angular to inject the ProductSerivce in the constructor.)
+
+
+		- display the Products to user, i.e. Using app.component.html file
+
+		<div class="container">
+			  <h1 class="heading"><strong>Services Demo </strong> </h1>
+
+			  <button type="button" (click)="getProducts()">Get Products</button>
+			  <hr>
+			   <div class='table-responsive'>
+			          <table class='table'>
+			              <thead>
+			                  <tr>
+			                      <th>ID</th>
+			                      <th>Name</th>
+			                      <th>Price</th>
+			                  </tr>
+			              </thead>
+			              <tbody>
+			                  <tr *ngFor="let product of products;">
+			                      <td>{{product.productID}}</td>
+			                      <td>{{product.name}}</td>
+			                      <td>{{product.price}}</td>
+			                  </tr>
+			              </tbody>
+			          </table>
+			      </div>
+			</div>
+
+
+								  data access
+			database	<-------	service		<-------	Component (*.html, *.css, *.ts)
+						------->				-------->				
+																		|
+																		V
+																	data display using *.html
+
+
+
+//---------------------------------------------------------------------------------
+
+	Directly instantiating the service, as shown above, has many disadvantageous
+
+	- The ProductService is tightly coupled to the Component. If we change the ProductService class definition, then we need to update every code where service is used
+
+	- If we want to change ProductService with BetterProductService, then we need to search wherever the ProductService is used and manually change it
+
+	- Makes Testing difficult. We may need to provide mockProductService for testing and use the ProductService for Production.
+
+	- Our Component Class has now tied one particular implementation of ProductService. It will make it difficult to reuse our components.
+
+	- We would also like to make our ProductService singleton so that we can use it across our application.
+
+	We can solve this by using the Angular Dependency injection
+
+	(Dependency Injection (DI) is a technique in which a class receives its dependencies from external sources rather than creating them itself.)
+
+
+		So AppComponent constructure used for the Dependency Injection
+
+		export class AppComponent {    
+		   products:Product[];    
+		 
+		   constructor(private productService:ProductService) {    
+		 		
+		   }    
+		 
+		   getProducts() {        
+		       this.products=this.productService.getProducts();    
+		   }
+		}
+
+	Now It is loosely coupled, so it become easy to test, reuseable
+
+
+	Angular Dependency Injection Framework:
+	----------------------------------------
+
+	Angular Dependency Injection framework implements the Dependency Injection in Angular. It creates & maintains the Dependencies and injects them into the Components, Directives, or Services.
+
+	There are five main players in the Angular Dependency injection Framework.
+
+	- Consumer
+		The Consumer is the class (Component, Directive, or Service) that needs the Dependency. In the above example, the AppComponent is the Consumer.
+
+	- Dependency
+		The Service that we want to in our consumer. In the above example the ProductService is the Dependency
+
+	- Injection Token (DI Token)
+		The Injection Token (DI Token) uniquely identifies a Dependency. We use DI Token when we register dependency
+
+	- Provider
+		The Providers Maintain the list of Dependencies along with their Injection Token. It uses the Injection Token is to identify the Dependency.
+
+	- Injector
+		Injector holds the Providers and is responsible for resolving the dependencies and injecting the instance of the Dependency to the Consumer
+
+	Registering the Dependency with the Injector
+	--------------------------------------------
+
+	Angular Provides an instance of Injector & Provider to every component & directive in the application ( Consumers). It also creates an Injector instance at the module level and also at the root of the application. Basically, it creates a Tree of Injectors with parent-child relationship 
+
+		The dependencies are registered with the Provider. This is done in the Providers metadata of the Injector.
+
+
+					@Component({
+					  selector: 'app-root',
+					  templateUrl: './app.component.html',
+					  providers: [ProductService]
+					})
+					export class AppComponent
+					{
+
+
+
+		We can also add the Services to Providers array of the @NgModule. Then they will be available for use in all the components & Services of the application.
+
+					@NgModule({
+					  declarations: [...],
+					  imports: [...],
+					  providers: [ProductService],
+					  bootstrap: []
+					})
+
+	//------------------------------------------------------------------------------------------------
+
+Angular Dependency Injection Example
+
+		- First, we need to register the dependencies with the provider. This is done in the providers metadata array of @Component decorator.
+ 
+			providers: [ProductService]
+
+		- Next, we need to tell angular that our component needs dependency injection. This is done by using the @Injectable() decorator.
+
+		@Injectable() decorator is not needed if the class already has other Angular decorators like @Component, @pipe or @directive etc. Because all these are a subtype of Injectible.
+
+		Since our AppComponent is already decorated with @Component, we do not need to decorate with the @Injectable
+
+		- Next, our AppComponent needs to ask for the dependencies. We do that in the constructor of the Component.
+
+			constructor(private productService:ProductService) { 
+			}
+
+	That’s it.
+		When AppComponent is instantiated it gets its own Injector instance. The Injector knows that AppComponent requires ProductService by looking at its constructor. It then looks at the Providers for a match and Provides an instance of ProductService to the AppComponent
+
+The Complete AppComponent is as follows. 
+
+		import { Component } from '@angular/core';
+		 
+		import { ProductService } from './product.service';
+		import { Product } from './product';
+		 
+		@Component({
+		  selector: 'app-root',
+		  templateUrl: './app.component.html',
+		  providers: [ProductService]
+		})
+		export class AppComponent
+		{
+		 
+		   products:Product[];
+		   
+		   constructor(private productService:ProductService){
+		   }
+		   
+		   getProducts() {
+		     this.products=this.productService.getProducts();
+		   }
+		  
+		}
+
+
+		-  Now let us inject service into another service.
+
+			Create the logger.service.ts
+
+				import { Injectable } from '@angular/core';
+				 
+				@Injectable()
+				export class LoggerService {
+				  log(message:any) {
+				    console.log(message);
+				  }
+				}
+
+		- Now we want to inject this into our ProductService class. The ProductService needs loggerService to be injected. Hence the class requires @Injectible Metadata
+
+		@Injectable()
+		export class ProductService{}
+
+
+		- Next, In the constructor of the ProductService ask for the loggerService.
+ 
+		constructor(private loggerService: LoggerService) {
+		    this.loggerService.log("Product Service Constructed");
+		}
+
+
+	- Now update the getProducts method to use the Logger Service.
+
+	 	public  getProducts() {
+	 
+	        this.loggerService.log("getProducts called");
+	        let products:Product[];
+	 
+	        products=[
+	            new Product(1,'Memory Card',500),
+	            new Product(1,'Pen Drive',750),
+	            new Product(1,'Power Bank',100)
+	        ]
+	 
+	        this.loggerService.log(products);
+	        return products;               
+	    }	
+
+
+	- Finally, we need to register LoggerService with the Providers metadata.
+
+			providers: [ProductService,LoggerService]
+
+
+
+	-  we registered the dependencies in the Providers array of the component class. The dependencies are only available to the component where we register them and to its child components.
+
+	To Make the dependencies available to the entire application, we need to register it in the root module.
+
+
+	Remove the providers: [ProductService,LoggerService], from the AppComponent and move it to the  AppModule as shown below
+
+	import { BrowserModule } from '@angular/platform-browser';
+		import { NgModule } from '@angular/core';
+		import { HttpModule } from '@angular/http';
+		import { FormsModule } from '@angular/forms';
+		 
+		import { AppComponent } from './app.component';
+		 
+		import { ProductService } from './product.service';
+		import { LoggerService } from './logger.service';
+		 
+		@NgModule({
+		  declarations: [
+		    AppComponent
+		  ],
+		  imports: [
+		    BrowserModule,
+		    HttpModule,
+		    FormsModule
+		  ],
+		  providers: [ProductService,LoggerService],
+		  bootstrap: [AppComponent]
+		})
+		export class AppModule { }
+
+		(Providing the service in the root module will create a single, shared instance of service and injects into any class that asks for it.)
+
+
+
+	- Instead of adding ProductService to providers of the AppModule, you can also add it in the providedIn metadata with the value root.
+
+	In fact, using the ProvidedIn is the preferred way to provide a service in a module
+
+			 
+			@Injectable({
+			  providedIn:'root'
+			})
+			export class ProductService {
+			 
+			@Injectable({
+			  providedIn:'root'
+			})
+			export class LoggerService {
+	
+	- The services that we provide at the root module are app-scoped, which means that we can access them from every component/service within the app.
+
+	- Just execute the command  ng g s test (creates the service), read the decorators carefully.
+
+
+//----------------------------------------------------------------------------------------------------
+
+	// Routing: 
+
+	What is Routing
+		
+		Routing allows you to move from one part of the application to another part or one View to another View.
+
+		Angular Router is a powerful JavaScript router built and maintained by the Angular core team that can be installed from the @angular/router package. It provides a complete routing library with the possibility to have multiple router outlets, different path matching strategies, easy access to route parameters and route guards to protect components from unauthorized access.
+
+		The Angular router is a core part of the Angular platform. It enables developers to build Single Page Applications with multiple views and allow navigation between these views.
+
+
+		Using Angular Router you can
+
+		- Navigate to a specific view by typing a URL in the address bar
+		- Pass optional parameters to the View
+		- Bind the clickable elements to the View and load the view when the user performs application tasks
+		- Handles back and forward buttons of the browser
+		- Allows you to dynamically load the view
+		- Protect the routes from unauthorized users using Guards
+
+
+		Let’s now see the essential Router concepts in more details.
+
+
+		Router
+
+		The Angular Router is an object that enables navigation from one component to the next component as users perform application tasks like clicking on menus links, buttons or clicking on back/forward button on the browser. We can access the router object and use its methods like navigate() or navigateByUrl(), to navigate to a route
+
+		Route
+
+		Route tells the Angular Router which view to display when a user clicks a link or pastes a URL into the browser address bar. Every Route consists of a path and a component it is mapped to. The Router object parses and builds the final URL using the Route
+
+
+	RouterLink
+
+		The RouterLink is a directive that binds the HTML element to a Route. Clicking on the HTML element, which is bound to a RouterLink, will result in navigation to the Route. The RouterLink may contain parameters to be passed to the route’s component.
+
+
+	THE ROUTER-OUTLET 
+
+		The Router-Outlet is a directive that’s available from the router library where the Router inserts the component that gets matched based on the current browser’s URL. You can add multiple outlets in your Angular application which enables you to implement advanced routing scenarios.
+
+		<router-outlet></router-outlet>
+
+		Any component that gets matched by the Router will render it as a sibling of the Router outlet.
+
+	ROUTES AND PATHS 
+
+		Routes are definitions (objects) comprised from at least a path and a component (or a redirectTo path) attributes. The path refers to the part of the URL that determines a unique view that should be displayed, and component refers to the Angular component that needs to be associated with a path. Based on a route definition that we provide (via a static RouterModule.forRoot(routes) method), the Router is able to navigate the user to a specific view.
+
+		e.g.
+
+			 { path:  'contacts', component:  ContactListComponent}
+
+
+	ROUTE MATCHING STRATEGIES 
+
+		The Angular Router provides different route matching strategies. The default strategy is simply checking if the current browser’s URL is prefixed with the path.
+
+		For example our previous route:
+
+		{ path:  'contacts', component:  ContactListComponent}
+
+
+
+	ROUTE PARAMS 
+
+		Creating routes with parameters is a common feature in web apps. Angular Router allows you to access parameters in different ways:
+
+		Using the ActivatedRoute service,
+		Using the ParamMap observable available starting with v4.
+		You can create a route parameter using the colon syntax. 
+
+		This is an example route with an id parameter:
+
+		{ path:  'contacts/:id', component:  ContactDetailComponent}
+
+
+		ROUTE GUARDS 
+
+		A route guard is a feature of the Angular Router that allows developers to run some logic when a route is requested, and based on that logic, it allows or denies the user access to the route. It’s commonly used to check if a user is logged in and has the authorization before he can access a page.
+
+		You can add a route guard by implementing the CanActivate interface available from the @angular/router package and extends the canActivate() method which holds the logic to allow or deny access to the route. For example, the following guard will always allow access to a route:
+
+		class MyGuard implements CanActivate {
+		  canActivate() {
+		    return true;
+		  }
+		}
+
+
+	NAVIGATION DIRECTIVE 
+
+		The Angular Router provides the routerLink directive to create navigation links. This directive takes the path associated with the component to navigate to. For example:
+
+			<a [routerLink]="'/contacts'">Contacts</a>
+
+
+	MULTIPLE OUTLETS AND AUXILIARY ROUTES 
+
+		Angular Router supports multiple outlets in the same application.
+
+		A component has one associated primary route and can have auxiliary routes. Auxiliary routes enable developers to navigate multiple routes at the same time.
+
+		To create an auxiliary route, you’ll need a named router outlet where the component associated with the auxiliary route will be displayed.
+
+		<router-outlet></router-outlet>  
+		<router-outlet  name="outlet1"></router-outlet> 
+	
+		- The outlet with no name is the primary outlet.
+		- All outlets should have a name except for the primary outlet.
+
+		You can then specify the outlet where you want to render your component using the outlet attribute:
+
+		{ path: "contacts", component: ContactListComponent, outlet: "outlet1" }
+
+
+
+//--------------------------------------------------------------------------------------------------
+
+	Asynchronous Operations:
+
+	Asynchronous programming is an important technique to create web applications. It allows units of work to run separately from the primary application thread and makes main application responsive.
+
+	An async function can contain an await expression that pauses the execution of the async function and waits for the passed Promise's resolution, and then resumes the async function's execution and evaluates as the resolved value.
+
+	Remember, the await keyword is only valid inside async functions. If you use it outside of an async function's body, you will get a SyntaxError.
+
+
+	•	Promises
+
+			Promises were added to JavaScript in ES6, also known as ECMAScript 2015. The reason for it was to simplify handling of asynchronous requests. Promise is a proxy for a value which is not yet known at the time of promise creation. 
+
+			A promise can be in three different states:
+
+			- Pending
+			- Fulfilled
+			- Rejected
+
+
+
+			Let’s see how promises can be used:
+
+			function get(url) {
+			 // Return a new promise object
+			  return new Promise((resolve, reject) => {
+			   // Initialise an api call
+			    $.ajax(url, {
+			      method: "GET",
+			      success: function(data, textStatus, jqXHR) {
+			        // API call was successful, so we resolve the promise
+			        // it will change state to ‘fulfilled’
+			        resolve(data);
+			      },
+			      error: function(jqXHR, textStatus, errorThrown) {
+			        // API call failed, so we reject the promise
+			        // it will change state to ‘rejected’
+			        reject(errorThrown);
+			      }
+			    });
+			  });
+			}
+
+			get("https://swapi.co/api/people")
+			  .then(response => {
+			    console.log("response", response);
+			  })
+			  .catch(error => {
+			    console.log("There was a problem while fetching data.");
+			    console.error(error);
+			  })
+			  .finally(() => {
+			    console.log('request completed')
+			  })```
+
+
+
+	•	Observables in Angular
+			Angular makes use of observables as an interface to handle a variety of common asynchronous operations. 
+
+			e.g.
+
+				- The EventEmitter class extends Observable, specifically Subject
+				- The HTTP module uses observables to handle AJAX requests and responses.
+				- The Router and Forms modules use observables to listen for and respond to user-input events.
+
+
+				Create an observable from a promise
+
+				import { from, Observable } from 'rxjs';
+
+				// Create an Observable out of a promise
+				const data = from(fetch('/api/endpoint'));
+				// Subscribe to begin listening for async result
+				data.subscribe({
+				  next(response) { console.log(response); },
+				  error(err) { console.error('Error: ' + err); },
+				  complete() { console.log('Completed'); }
+				});
+
+	•	Using HttpClient with Promises using toPromise
+
+		RxJS provides the toPromise() operator which converts an Observable to a promise so you can work with the HttpClient methods using promises instead of Observables. We have previously seen that with an example:
+
+				  private fetchData(){
+				    const promise = this.httpClient.get(this.apiUrl).toPromise();
+				    console.log(promise);  
+				    promise.then((data)=>{
+				      console.log("Promise resolved with: " + JSON.stringify(data));
+				    }).catch((error)=>{
+				      console.log("Promise rejected with " + JSON.stringify(error));
+				    });
+				    
+				We call the get() method which returns an Observable but thanks to toPromise() we get a promise and we call the then() method to send the API request and provide a callback that displays date once it's fetched.
+
+
+
+
+
 
 
 
